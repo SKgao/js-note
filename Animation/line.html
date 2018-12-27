@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css3 animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0 ;
+        }
+        #box,
+        #ball {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        #box {
+            background: lightblue;
+        }
+        #ball {
+            background: lightpink;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h2>基本运动原理--数学模型</h2>
+
+    <div id="box">click</div>
+    <div id="ball">click</div>
+
+    <script>
+        // 直线运动
+        box.addEventListener('click', function() {
+            var self = this
+            var startTime = Date.now()
+            var distance = 200
+            var duration = 2000
+            requestAnimationFrame(function step() {
+                var p = Math.min(1.0, (Date.now() - startTime) / duration)
+                // 匀速运动 linear
+                // self.style.transform = 'translateX('+ (distance * p) +'px)'
+                // 匀加速运动 ease-in
+                // self.style.transform = 'translateX('+ (p * p) +'px)'
+                // 匀减速运动 ease-out
+                // self.style.transform = 'translateX('+ (distance * p * (2 - p)) +'px)'
+
+                // 斜线运动
+                var tx = distance * p
+                var ty = tx
+                self.style.transform = `translate(${tx}px, ${ty}px)`
+                if (p < 1.0) {
+                    requestAnimationFrame(step)
+                }
+            })
+        })
+
+        // 圆锥曲线运动
+        ball.addEventListener('click', function() {
+            var self = this
+            var startTime = Date.now()
+            var disX = 200
+            var disY = 200
+            var duration = 500 * Math.sqrt(2 * disX / 98)
+            requestAnimationFrame(function step() {
+                var p = Math.min(1.0, (Date.now() - startTime) / duration)
+                // 抛物线运动
+                var tx = disX * p
+                var ty = disY * p * p
+                self.style.transform = `translate(${tx}px, ${ty}px)`
+                if (p < 1.0) {
+                    requestAnimationFrame(step)
+                }
+            })
+        })
+    </script>
+</body>
+</html>

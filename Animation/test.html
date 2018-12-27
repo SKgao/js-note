@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css3 animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            width: 50px;
+            height: 50px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h2>动画测试</h2>
+
+    <div id="box"></div>
+
+    <script src="Animator.js"></script>
+    <script>
+        var animator = new Animator(200, function(p) {
+            var tx = -100 * Math.sin(2 * Math.PI * p)
+            var ty = -100 * Math.cos(2 * Math.PI * p)
+
+            box.style.transform = `translate(${tx}px, ${ty}px)`
+        })
+
+        var a1 = new Animator(500, function(p) {
+            var tx = 100 * p
+            box.style.transform = `translateX(${tx}px)`
+        })
+
+        var a2 = new Animator(1000, function(p) {
+            var ty = 200 * p
+            box.style.transform = `translateX(${ty}px)`
+        })
+
+        box.addEventListener('click', function(e) {
+            // var i = 0
+
+            // animator.start({
+            //     end: function() {
+            //         box.style.background = ['red', 'green', 'blue'][i++ % 3]
+            //         return false
+            //     }
+            // })
+            a1.start({
+                end: function() {
+                    a2.start()
+                }
+            })
+        })
+    </script>
+</body>
+</html>

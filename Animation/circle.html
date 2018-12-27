@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css3 animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: lightcoral;
+            border-radius: 50%;
+            top: 100px;
+            left: 200px;
+            transform-origin: 10px 110px;
+            /* animation: circle 4s linear infinite; */
+        }
+        /* 关键帧 */
+        @keyframes circle {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>圆周运动</h2>
+
+    <div id="box"></div>
+
+    <script>
+        // 椭圆周运动
+        function startCircle() {
+            var startTime = Date.now()
+            var cycle = 4000
+            var x = 160
+            var y = 80
+            requestAnimationFrame(function update() {
+                var currentTime = Date.now()
+                var p = (currentTime - startTime) / cycle
+                var _X = x * Math.cos(Math.PI * 2 * p)
+                var _Y = y * Math.sin(Math.PI * 2 * p)
+                box.style.transform = `translate(${_X}px, ${_Y}px)`
+                requestAnimationFrame(update)
+            })
+        }
+        startCircle()
+    </script>
+</body>
+</html>
