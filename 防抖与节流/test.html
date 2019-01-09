@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test case</title>
+
+    <style type="text/css">
+        .container {
+            margin-top: 30px;
+        }
+        #box {
+            float: left;
+            padding: 10px;
+            width: 500px;
+            max-height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #999;
+        }
+        #box > p {
+            width: 400px;
+            height: 1500px;
+        }
+        span {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            测试节流throttle：
+            <input type="text" id="myInput" placeholder="请输入内容"/>
+            <span id="inputText"></span>
+        </label>
+
+        <div class="container">
+            <div id="box">
+                滚动该区域：测试防抖debounce
+                <p></p>
+            </div>
+            <span id="height">滚动位置：0</span>
+        </div>
+    </div>
+
+    <script src="./debounce.js"></script>
+    <script src="./throttle.js"></script>
+    <script>
+
+        // 滚动事件
+        box.onscroll = debounce(function () {
+            var scrollTop = box.scrollTop
+            height.innerHTML = `滚动位置：${scrollTop}px`
+        }, 50)
+
+        // 输入事件
+        myInput.addEventListener('keyup', throttle(function (e) {
+            // console.log('v--->', e.target.value)
+            inputText.innerHTML = `输入内容：${e.target.value}`
+        }, 1000), false)
+
+    </script>
+</body>
+</html>
