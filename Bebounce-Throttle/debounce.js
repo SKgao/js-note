@@ -6,7 +6,7 @@
  *  2. 频繁的触发键盘事件。包括 keyup、keydown 等
  *  3. 频繁的触发鼠标事件。包括 mousemove、mouseout、mouseenter 等
  */
-(function (win, duc) {
+;(function () {
     var debounce
 
     // 简易版实现
@@ -61,4 +61,4 @@
         !('debounce' in _) && (_.debounce = debounce)
     }
 
-})(window, document)
+})(window)

@@ -2,7 +2,7 @@
  * 节流函数简易实现
  * 节流原理：设定一个执行周期，当调用动作的时刻大于等于执行周期则执行该动作，然后进入下一个新周期
  */
-(function (win, duc) {
+;(function () {
     var throttle
 
     // 简易版实现1--时间戳版本
@@ -77,6 +77,6 @@
         !('throttle' in _) && (_.throttle = throttle)
     }
 
-})(window, document)
+})(window)
 
 

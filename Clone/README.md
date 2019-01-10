@@ -22,7 +22,7 @@
 ```
     const objA = {a: 1, b: {c: 2}, d: 3}
     const objB = Oject.assign({}, objA)
-    const objC = Oject.assign(...objA)
+    const objC = {...ObjA}
 ```
 
 -------------------------------------------------
@@ -52,9 +52,9 @@ const deepCopy = (obj) => {
 }
 ```
 
-3. 完全体deepCopy。通常不太必要，可参考lodash 、underscore的实现  
+3. 完全体deepCopy。通常不太必要，可参考lodash 、underscore的实现
 
-lodash的实现 [_.cloneDeep()](https://github.com/lodash/lodash/blob/master/.internal/baseClone.js)  
+lodash的实现 [_.cloneDeep()](https://github.com/lodash/lodash/blob/master/.internal/baseClone.js)
 
 underscore的实现 [__.clone()](https://github.com/jashkenas/underscore/blob/e4743ab712b8ab42ad4ccb48b155034d02394e4d/underscore.js#L1068)
 
