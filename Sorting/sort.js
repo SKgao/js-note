@@ -63,4 +63,7 @@ selectionSort = function (arr) {
     return arr
 }
 
-export default selectionSort
+export default {
+    bubbleSort,
+    selectionSort
+}
