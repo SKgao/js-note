@@ -239,19 +239,136 @@ countingSort = function (arr) {
     return B
 }
 console.log('countingSort____>', countingSort(testArr))
-console.log('quickSort_______>', quickSort(testArr))
 
 /*===================== 桶排序 ==========================*/
 var bucketSort
 
+// 1.设置固定空桶数
+// 2.将数据放到对应的空桶中
+// 3.将每个不为空的桶进行排序
+// 4.拼接不为空的桶中的数据，得到结果
+bucketSort = function (arr, bucketSize) {
+    if (arr.length < 2) {
+        return arr
+    }
+    var len = arr.length
+    var arrMin = arr[0]
+    var arrMax = arr[0]
+    for (var i = 0; i < len; i++) {
+        arrMin = Math.min(arrMin, arr[i])
+        arrMax = Math.max(arrMax, arr[i])
+    }
+
+    var BUCKET_SIZE = bucketSize || 10
+    var space = (arrMax - arrMin + 1) / BUCKET_SIZE
+    var buckets = []
+    for (var j = 0; j < len; j++) {
+        var idx = Math.floor((arr[j] - arrMin) / space)
+        if (buckets[idx]) {
+            var k = buckets[idx].length - 1
+            while (k >= 0 && buckets[idx][k] > arr[j]) {
+                buckets[idx][k + 1] = buckets[idx][k]
+                k--
+            }
+            buckets[idx][k + 1] = arr[j]
+        } else {
+            buckets[idx] = []
+            buckets[idx].push(arr[j])
+        }
+    }
+
+    var res = []
+    var n = 0
+    while (n < BUCKET_SIZE) {
+        if (buckets[n]) {
+            res = res.concat(buckets[n])
+        }
+        n++
+    }
+
+    return res
+}
+
+console.log('bucketSort______>', bucketSort(testArr))
 
 /*===================== 堆排序 ==========================*/
 var heapSort
 
+// 交换数组元素
+var swap = function (arr, i, j) {
+    var temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+    return arr
+}
+
+var shiftDown = function (arr, i, length) {
+    var temp = arr[i]
+    for (var j = i * 2 + 1; j < length; j = j * 2 + 1) {
+        if (j + 1 < length && arr[j] < arr[j + 1]) {
+            j++
+        }
+        if (temp < arr[j]) {
+            swap(arr, i, j)
+            i = j
+        } else {
+            break
+        }
+    }
+}
+
+heapSort = function (arr) {
+    var len = arr.length
+    for (var i = Math.floor(len / 2 - 1); i >= 0; i--) {
+        shiftDown(arr, i, len)
+    }
+
+    for (var j = len - 1; j > 0; j--) {
+        swap(arr, 0, j)
+        shiftDown(arr, 0, j)
+    }
+    return arr
+}
+
+console.log('heapSort________>', heapSort(testArr))
 
 /*===================== 基数排序 ==========================*/
 var radixSort
 
+// 适用范围：
+// 1. 数据范围较小
+// 2. 每个数值要大于等于0
+/**
+ * @param arr 数组
+ * @param maxDigit 最大位数
+ */
+radixSort = function (arr, maxDigit) {
+    var mod = 10
+    var dev = 1
+    var counter = []
+    for (var i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
+        for (var j = 0; j < arr.length; j++) {
+            var bucket = parseInt((arr[j] % mod ) / dev)
+            if (counter[bucket] === null) {
+                counter[bucket] = []
+                counter[bucket].push(arr[j])
+            }
+        }
+        var pos = 0
+        for (var k = 0; k < counter.length; k++) {
+            var value
+            if (counter[k]) {
+                while ((value = counter[k].shift()) !== null) {
+                    arr[pos++] = value
+                }
+            }
+        }
+    }
+    return arr
+}
+
+console.log('radixSort_______>', radixSort(testArr, 2))
+console.log('quickSort_______>', quickSort(testArr))
 export default {
     bubbleSort,         // 冒泡排序
     selectionSort,      // 选择排序
