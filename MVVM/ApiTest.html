@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>api-test</title>
+</head>
+<body>
+    <div>
+        <label>
+            输入：
+            <input type="text" id="myInput" placeholder="请输入内容"/>
+        </label>
+        <p id="myText"></p>
+    </div>
+
+    <script>
+        // 使用 Object.defineProperty实现双向绑定
+        const obj = {}
+        Object.defineProperty(obj, 'text', {
+            get: function () {
+                return 'triggered getter'
+            },
+            set: function (newVal) {
+                console.log('set:: obj.text is', newVal)
+                myInput.value = newVal
+                myText.innerHTML = newVal
+            }
+        })
+
+        // myInput.addEventListener('keyup', function (e) {
+        //     obj.text = e.target.value
+        //     var testGetter = obj.text
+        // }, false)
+
+        // 使用Proxy实现双向绑定
+        const obj2 = {}
+        const proxyObj = new Proxy(obj2, {
+            get: function (target, key, receiver) {
+                console.log('getter::', { target, key, receiver })
+                return Reflect.get(target, key, receiver)
+            },
+            set: function (target, key, value, receiver) {
+                console.log('setter::', { target, key, value, receiver })
+                if (key === 'text') {
+                    myInput.value = value
+                    myText.innerHTML = value
+                }
+                return Reflect.set(target, key, value, receiver)
+            }
+        })
+
+        myInput.addEventListener('keyup', function (e) {
+            proxyObj.text = e.target.value
+            var testGetter = proxyObj.text
+        }, false)
+    </script>
+
+</body>
+</html>
