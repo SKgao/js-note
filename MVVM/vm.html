@@ -7,6 +7,27 @@
     <title>vm-test</title>
 </head>
 <body>
+    <div>
+        <label>
+            输入：
+            <input type="text" id="myInput" placeholder="请输入内容"/>
+        </label>
+        <p id="myText"></p>
+    </div>
 
+    <script src="vm.js"></script>
+    <script>
+        console.log('Vm__>', Vm)
+        const _vm = new Vm({
+            data: {
+                text: ''
+            }
+        })
+
+        myInput.addEventListener('keyup', function(e) {
+            _vm.text = e.target.value;
+        })
+        _vm.$watch('text', str => myText.innerHTML = str)
+    </script>
 </body>
 </html>
