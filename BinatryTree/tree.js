@@ -49,6 +49,58 @@ function BinatryTree(key) {
             insertNode(this.root, newNode)
         }
     }
+
+    // 中序遍历
+    // 先遍历当前节点的左子树
+    // 再返回当前节点
+    // 最后遍历当前节点的右子树
+    var inOrderTraverseNode = function (node, callback) {
+        if (node !== null) {
+            // 递归遍历
+            inOrderTraverseNode(node.left, callback)
+            callback(node.key)
+            inOrderTraverseNode(node.right, callback)
+        }
+    }
+
+    this.inOrderTraverse = function (callback) {
+        inOrderTraverseNode(this.root, callback)
+    }
+
+    // 前序遍历
+    // 先返回当前节点
+    // 再遍历当前节点的左子树
+    // 最后遍历当前节点的右子树
+    var preOrderTraverseNode = function (node, callback) {
+        if (node !== null) {
+            // 递归遍历
+            callback(node.key)
+            preOrderTraverseNode(node.left, callback)
+            preOrderTraverseNode(node.right, callback)
+        }
+    }
+
+    this.preOrderTraverse = function (callback) {
+        preOrderTraverseNode(this.root, callback)
+    }
+
+    // 后序遍历
+    // 先遍历当前节点的左子树
+    // 再遍历当前节点的右子树
+    // 最后返回当前节点
+    var postOrderTraverseNode = function (node, callback) {
+        if (node !== null) {
+            // 递归遍历
+            postOrderTraverseNode(node.left, callback)
+            postOrderTraverseNode(node.right, callback)
+            callback(node.key)
+        }
+    }
+
+    this.postOrderTraverse = function (callback) {
+        postOrderTraverseNode(this.root, callback)
+    }
+
 }
 
 var testNodes = [8, 3, 1, 4, 6, 10, 7, 14, 11]
@@ -56,4 +108,9 @@ var binatryTree = new BinatryTree()
 testNodes.forEach(key => {
     binatryTree.insert(key)
 })
+
+var cb = key => console.log(key)
 console.log('myTreeNode::', binatryTree.root)
+console.log('inOrderTraverse::', binatryTree.inOrderTraverse(cb))
+console.log('preOrderTraverse::', binatryTree.preOrderTraverse(cb))
+console.log('postOrderTraverse::', binatryTree.postOrderTraverse(cb))
