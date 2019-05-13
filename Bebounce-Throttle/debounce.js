@@ -22,7 +22,6 @@
         }
     }
 
-
     // 控制立即执行参数、并返回执行函数的返回值
     // 因为setTimeout执行func是异步的，始终return undefined
     // immediate参数为true的情况下，result才会取到结果
@@ -62,3 +61,4 @@
     }
 
 })(window)
+
