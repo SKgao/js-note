@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css</title>
+    <style type="text/css">
+        .box {
+            --c: #0ff;
+            --p: 60%;
+            width: 500px;
+            height: 60px;
+            background-color: #f1f1f1;
+            border-radius: 30px;
+            background-image: radial-gradient(closest-side circle at var(--p), var(--c), var(--c) 100%, transparent),
+                linear-gradient(var(--c), var(--c));
+            background-size: 100%, 60%;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>
