@@ -3,4 +3,7 @@
   "prettier.printWidth": 120,
   "breadcrumbs.enabled": true,
   "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 }
